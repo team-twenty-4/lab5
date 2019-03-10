@@ -6,19 +6,22 @@ use CodeIgniter\Model;
 
 class Student extends Model {
     
-	protected $data = [
-		'A01005350' => ['name' => 'Jacob Smith', 'gpa' => 98],
-		'A00994245' => ['name' => 'Harmanbir Dhillon', 'gpa' => 103],
-		'A01027608' => ['name' => 'Jonthan Chiu', 'gpa' => 53]
-	];
+    protected $primaryKey = 'id';
+    protected $allowedFields = ['first', 'last'];
 
     public function find($id = null)
     {
-        return $this->data[$id];
+        $db = \Config\Database::connect();
+        $query = $db->query("SELECT * FROM student WHERE id = '" . $id . "'\"");
+        $results = $query->getResult();
+        return $results;
     }
     
     public function findAll(int $limit = 0, int $offset = 0)
     {
-        return $this->data;
+        $db = \Config\Database::connect();
+        $query = $db->query("SELECT * FROM student");
+        $results = $query->getResult();
+        return $results;
     }
 }
