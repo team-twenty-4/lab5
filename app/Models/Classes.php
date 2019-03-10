@@ -5,20 +5,21 @@ use CodeIgniter\Model;
 
 class Classes extends Model
 {
-    protected $data = [
-        'Math'       => ['id'=>'MATH4092', 'description'=>'a math class for the intellectuals'],
-        'Philosophy' => ['id'=>'PHIL4083', 'description'=>'a philosphy class to OH YEA YEA'],
-        'Business'   => ['id'=>'BUSA4124', 'desctiption'=>'learn to shake hands']
-    ];
     
     public function find($id = null)
     {
-        return $this->data[$id];
+        $db = \Config\Database::connect();
+        $query = $db->query("SELECT * FROM courses WHERE id = '" . $id . "'\"");
+        $results = $query->getResult();
+        return $results;
     }
     
     public function findAll(int $limit = 0, int $offset = 0)
     {
-        return $this->data;
+        $db = \Config\Database::connect();
+        $query = $db->query("SELECT * FROM courses");
+        $results = $query->getResult();
+        return $results;
     }
 }
     

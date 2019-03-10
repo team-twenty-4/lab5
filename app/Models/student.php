@@ -12,7 +12,7 @@ class Student extends Model {
     public function find($id = null)
     {
         $db = \Config\Database::connect();
-        $query = $db->query("SELECT * FROM Students WHERE id = '" . $id . "'\"");
+        $query = $db->query("SELECT * FROM student WHERE id = '" . $id . "'\"");
         $results = $query->getResult();
         return $results;
     }
@@ -20,7 +20,7 @@ class Student extends Model {
     public function findAll(int $limit = 0, int $offset = 0)
     {
         $db = \Config\Database::connect();
-        $query = $db->query("SELECT * FROM Students");
+        $query = $db->query("SELECT * FROM student");
         $results = $query->getResult();
         return $results;
     }
