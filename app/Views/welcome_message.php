@@ -81,7 +81,7 @@
 
 		<div class="wrap">
 
-			<h1>Welcome to CodeIgniter</h1>
+			<h1>Lab 5</h1>
 
 			<p class="version">version <?= CodeIgniter\CodeIgniter::CI_VERSION ?></p>
 
@@ -105,27 +105,54 @@
 			</div>
 
 			<div class="guide">
-				<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
+				<p>Made by Jacob Smith, Harmabir Dhillon, and Jonathan Chiu.</p>
+                <li><a href="students">Students</a></li>
 
-				<p>If you would like to edit this page you'll find it located at:</p>
+                <ol>
+                    <?php
+					$db = \Config\Database::connect();
+					// validation starts here
+					$validation =  \Config\Services::validation();
+                    $query = $db->query('SELECT * FROM student');
+                    $results = $query->getResult();
+                    foreach ($results as $row)
+                    {
+                        echo '<li><a href="student/'.$row->id.'">Student '.$row->id.'</a></li>';
+                        echo $row->last, ', ', $row->first;
+                        echo '  <form action="student/'.$row->id.'/edit" method="get">
+                                    <button type="submit">Edit</button>
+                                </form>';
+                    }
+                    ?>
 
-				<pre>
-				<code>
-					application/Views/welcome_message.php
-				</code>
-				</pre>
+                    <p style="font-weight: bold">Add Student:</p>
+                    <form action="students" method="post">
+                        First Name:
+                        <input type="text" name="first" />
+                        <br>
+                        Last Name:
+                        <input type="text" name="last" />
+                        <br>
+                        <button type="submit">Add</button>
+                    </form>
+                </ol>
 
-				<p>The corresponding controller for this page is found at:</p>
-
-				<pre>
-				<code>
-					application/Controllers/Home.php
-				</code>
-				</pre>
-
-				<p>If you are exploring CodeIgniter for the very first time, you
-					should start by reading the
-					<a href="https://codeigniter4.github.io/CodeIgniter4">User Guide</a>.</p>
+                <li><a href="courses">Courses</a></li>
+                <ol>
+                    <?php
+                    $db = \Config\Database::connect();
+                    $query = $db->query('SELECT * FROM courses');
+                    $results = $query->getResult();
+                    foreach ($results as $row)
+                    {
+                        echo '<li><a href="courses/'.$row->id.'">Course '.$row->id.'</a></li>';
+                        echo $row->code, ' - ', $row->name;
+                        echo '  <form action="courses/'.$row->id.'/edit" method="get">
+                                    <button type="submit">Edit</button>
+                                </form>';
+                    }
+                    ?>
+                </ol>
 
 			</div>
 
