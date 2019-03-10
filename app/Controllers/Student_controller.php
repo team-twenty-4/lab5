@@ -29,13 +29,32 @@ class Student_controller extends Controller {
         return $this->failUnauthorized('Not implemented');
     }
     public function edit($id) {
-        return $this->failUnauthorized('Not implemented');
+        $db = \Config\Database::connect();
+        $query = $db->query("SElECT * FROM student WHERE id = '" . $id . "'\''");
+        $results = $query->getResult();
+        $first = NULL;
+        $last = NULL;
+        foreach($results as $row) 
+        {
+            $first = $row->first;    
+            $last  = $row->last;
+        }
     }
     public function create() {
         return $this->failUnauthorized('Not implemented');
     }
     public function update($id) {
-        return $this->failUnauthorized('Not implemented');
+        $modal = new Student();
+        
+        $data = [
+            'first' => $this->request->getPost('first');
+            'last'  => $this->request->getPost('last');
+        ];
+        
+        $modal->update($id, $data);
+        $response = $modal->find($id);
+        
+        return $this->respond(response);
     }
     public function delete($id) {
         return $this->failUnauthorized('Not implemented');
