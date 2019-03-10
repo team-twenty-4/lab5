@@ -44,7 +44,17 @@ class Student_controller extends Controller {
         return $this->failUnauthorized('Not implemented');
     }
     public function update($id) {
-        return $this->failUnauthorized('Not implemented');
+        $modal = new Student();
+        
+        $data = [
+            'first' => $this->request->getPost('first');
+            'last'  => $this->request->getPost('last');
+        ];
+        
+        $modal->update($id, $data);
+        $response = $modal->find($id);
+        
+        return $this->respond(response);
     }
     public function delete($id) {
         return $this->failUnauthorized('Not implemented');
